@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface SignInModalProps {
   onClose: () => void;
 }
 
 const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
+  const [usePhone, setUsePhone] = useState(false); // State to toggle between Email and Phone options
+
   return (
     <div
       style={{
@@ -24,9 +26,9 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
         style={{
           background: "white",
           padding: "30px",
-          borderRadius: "10px",
+          borderRadius: "12px",
           width: "400px",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
           textAlign: "center",
         }}
       >
@@ -36,11 +38,11 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
         <form>
           <div style={{ marginBottom: "15px", textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>
-              Email
+              {usePhone ? "Phone Number" : "Email"}
             </label>
             <input
-              type="email"
-              placeholder="Enter your email"
+              type={usePhone ? "tel" : "email"}
+              placeholder={usePhone ? "Enter your phone number" : "Enter your email"}
               required
               style={{
                 width: "100%",
@@ -51,7 +53,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
               }}
             />
           </div>
-          <div style={{ marginBottom: "20px", textAlign: "left" }}>
+          <div style={{ marginBottom: "15px", textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>
               Password
             </label>
@@ -72,8 +74,8 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
             type="submit"
             style={{
               width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
+              padding: "12px",
+              borderRadius: "6px",
               background: "#4F46E5",
               color: "white",
               border: "none",
@@ -98,6 +100,18 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
           >
             Sign Up
           </a>
+        </div>
+        <div style={{ marginTop: "10px", fontSize: "14px", cursor: "pointer" }}>
+          <span
+            onClick={() => setUsePhone(!usePhone)}
+            style={{
+              color: "#4F46E5",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            {usePhone ? "Sign in with Email instead" : "Sign in with Phone instead"}
+          </span>
         </div>
         <button
           onClick={onClose}
