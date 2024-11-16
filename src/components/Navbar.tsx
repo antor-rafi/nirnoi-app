@@ -12,9 +12,14 @@ export default function Navbar({ onProfileClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Nirnoi Logo and Name */}
-          <Link to="/" className="flex items-center gap-2"> {/* Link to the home page */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity"
+          >
             <BookOpen className="h-8 w-8 text-indigo-600" />
-            <span className="ml-2 text-xl font-bold text-gray-900">Nirnoi</span>
+            <span className="text-lg text-gray-800 font-light tracking-wide">
+              Nirnoi
+            </span>
           </Link>
 
           <div className="flex items-center gap-6">
