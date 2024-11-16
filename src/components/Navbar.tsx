@@ -11,15 +11,10 @@ export default function Navbar({ onProfileClick }: NavbarProps) {
     <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Nirnoi Logo and Name with Border */}
-          <Link
-            to="/"
-            className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 hover:border-indigo-600 transition-all"
-          >
+          {/* Nirnoi Logo and Name */}
+          <Link to="/" className="flex items-center gap-2"> {/* Link to the home page */}
             <BookOpen className="h-8 w-8 text-indigo-600" />
-            <span className="text-lg text-gray-800 font-light tracking-wide">
-              Nirnoi
-            </span>
+            <span className="ml-2 text-xl font-bold text-gray-900">Nirnoi</span>
           </Link>
 
           <div className="flex items-center gap-6">
