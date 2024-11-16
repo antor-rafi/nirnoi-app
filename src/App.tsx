@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import Footer from './components/Footer'; // Import the Footer component
 import SignInModal from './components/SignInModal'; // Import the SignInModal component
 import ChatBox from './components/chatbox'; // Import the ChatBox component
+import Resources from './components/Resources'; // Import the Resources component
 
 function App() {
   // State to manage the modal visibility
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/chat" element={<ChatBox />} />
+          <Route path="/resources" element={<Resources />} /> {/* New Resources Page */}
         </Routes>
 
         {/* Footer */}
