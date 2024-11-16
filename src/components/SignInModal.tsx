@@ -13,34 +13,105 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0, 0, 0, 0.5)",
+        background: "rgba(0, 0, 0, 0.6)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 1000,
       }}
     >
       <div
         style={{
           background: "white",
-          padding: "20px",
-          borderRadius: "8px",
-          width: "300px",
+          padding: "30px",
+          borderRadius: "10px",
+          width: "400px",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
           textAlign: "center",
         }}
       >
-        <h2>Sign In</h2>
+        <h2 style={{ fontSize: "24px", marginBottom: "20px", color: "#4F46E5" }}>
+          Sign In
+        </h2>
         <form>
-          <div>
-            <label>Email:</label>
-            <input type="email" placeholder="Enter your email" required />
+          <div style={{ marginBottom: "15px", textAlign: "left" }}>
+            <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                fontSize: "14px",
+              }}
+            />
           </div>
-          <div>
-            <label>Password:</label>
-            <input type="password" placeholder="Enter your password" required />
+          <div style={{ marginBottom: "20px", textAlign: "left" }}>
+            <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                fontSize: "14px",
+              }}
+            />
           </div>
-          <button type="submit">Sign In</button>
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              background: "#4F46E5",
+              color: "white",
+              border: "none",
+              fontSize: "16px",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            Sign In
+          </button>
         </form>
-        <button onClick={onClose} style={{ marginTop: "10px" }}>
+        <div style={{ marginTop: "15px", fontSize: "14px" }}>
+          <span>Don't have an account?</span>{" "}
+          <a
+            href="#"
+            style={{
+              color: "#4F46E5",
+              textDecoration: "none",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            Sign Up
+          </a>
+        </div>
+        <button
+          onClick={onClose}
+          style={{
+            marginTop: "20px",
+            padding: "10px",
+            borderRadius: "5px",
+            background: "#ccc",
+            color: "#333",
+            border: "none",
+            fontSize: "14px",
+            cursor: "pointer",
+          }}
+        >
           Close
         </button>
       </div>
