@@ -12,7 +12,7 @@ export default function UniversityFinder() {
     {
       name: 'University of Melbourne',
       country: 'Australia',
-      match: 92,
+      match: 72,
       image: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?auto=format&fit=crop&w=400&h=200'
     }
   ];
