@@ -23,13 +23,13 @@ export default function Navbar({ onProfileClick }: NavbarProps) {
               <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* Chat Link */}
+            {/* Connect Link */}
             <Link
               to="/chat" // Navigate to the chat route
               className="p-2 text-gray-500 hover:text-indigo-600 flex items-center"
             >
               <MessageSquare className="h-5 w-5" />
-              <span className="ml-2 text-sm font-medium">Chat</span>
+              <span className="ml-2 text-sm font-medium">Connect</span>
             </Link>
 
             {/* Profile */}
