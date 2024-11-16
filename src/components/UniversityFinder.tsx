@@ -4,10 +4,10 @@ import { Search, Filter, MapPin } from 'lucide-react';
 export default function UniversityFinder() {
   const universities = [
     {
-      name: 'University of Toronto',
-      country: 'Canada',
+      name: 'Technical University of Munich',
+      country: 'Germany',
       match: 95,
-      image: 'https://images.unsplash.com/photo-1569447891824-5f5bdd07614f?auto=format&fit=crop&w=400&h=200'
+      image: 'https://tum-asia.edu.sg/wp-content/uploads/2023/09/Technical-University-of-Munich-Asia-80.jpg'
     },
     {
       name: 'University of Melbourne',
