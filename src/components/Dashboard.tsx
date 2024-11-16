@@ -1,4 +1,3 @@
-import React from 'react';
 import { Compass, GraduationCap, Calculator, BookOpen, Users, LineChart } from 'lucide-react';
 import UniversityFinder from './UniversityFinder';
 import ProgressTracker from './ProgressTracker';

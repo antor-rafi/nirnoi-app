@@ -1,28 +1,50 @@
-import React from 'react';
-import './Footer.css';  // Custom styles for the footer
-
 const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p className="footer-text">&copy; 2024 Nirnoi. All Rights Reserved.</p>
-        <ul className="footer-links">
-          <li><a href="/about" className="footer-link">About</a></li>
-          <li><a href="/contact" className="footer-link">Contact</a></li>
-          <li><a href="/privacy" className="footer-link">Privacy Policy</a></li>
-        </ul>
-        <div className="footer-socials">
-          <a href="https://facebook.com" className="footer-social-link" target="_blank" rel="noopener noreferrer">
-            Facebook
-          </a>
-          <a href="https://twitter.com" className="footer-social-link" target="_blank" rel="noopener noreferrer">
-            Twitter
-          </a>
-          <a href="https://instagram.com" className="footer-social-link" target="_blank" rel="noopener noreferrer">
-            Instagram
-          </a>
+    const footerStyle: React.CSSProperties = {
+      backgroundColor: '#333',
+      color: 'white',
+      padding: '20px',
+      textAlign: 'center',
+      fontSize: '14px',
+    };
+  
+    const contentStyle: React.CSSProperties = {
+      maxWidth: '1200px',
+      margin: '0 auto',
+    };
+  
+    const linksStyle: React.CSSProperties = {
+      listStyle: 'none',
+      padding: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '15px',
+      margin: '10px 0',
+    };
+  
+    const linkStyle: React.CSSProperties = {
+      color: 'white',
+      textDecoration: 'none',
+    };
+  
+    return (
+      <footer style={footerStyle}>
+        <div style={contentStyle}>
+          <p>&copy; 2024 Nirnoi. All Rights Reserved.</p>
+          <ul style={linksStyle}>
+            <li>
+              <a href="/about" style={linkStyle}>About</a>
+            </li>
+            <li>
+              <a href="/contact" style={linkStyle}>Contact</a>
+            </li>
+            <li>
+              <a href="/privacy" style={linkStyle}>Privacy Policy</a>
+            </li>
+          </ul>
         </div>
-      </div>
-    </footer>
-  );
-};
+      </footer>
+    );
+  };
+  
+  export default Footer;
+  
