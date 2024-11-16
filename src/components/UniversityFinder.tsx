@@ -7,7 +7,7 @@ export default function UniversityFinder() {
       name: 'Technical University of Munich',
       country: 'Germnay',
       match: 95,
-      image: 'https://tum-asia.edu.sg/wp-content/uploads/2023/09/Technical-University-of-Munich-Asia-80.jpg'
+      image: 'https://imgur.com/a/cWNMljP'
     },
     {
       name: 'University of Melbourne',
