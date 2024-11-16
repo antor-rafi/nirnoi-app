@@ -1,4 +1,5 @@
 import { BookOpen, Bell, MessageSquare, User } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 // Define props interface for Navbar
 interface NavbarProps {
@@ -16,13 +17,22 @@ export default function Navbar({ onProfileClick }: NavbarProps) {
           </div>
 
           <div className="flex items-center gap-6">
+            {/* Notifications */}
             <button className="p-2 text-gray-500 hover:text-indigo-600 relative">
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
             </button>
-            <button className="p-2 text-gray-500 hover:text-indigo-600">
+
+            {/* Chat Link */}
+            <Link
+              to="/chat" // Navigate to the chat route
+              className="p-2 text-gray-500 hover:text-indigo-600 flex items-center"
+            >
               <MessageSquare className="h-5 w-5" />
-            </button>
+              <span className="ml-2 text-sm font-medium">Chat</span>
+            </Link>
+
+            {/* Profile */}
             <button
               onClick={onProfileClick} // Attach the onProfileClick handler
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200"
