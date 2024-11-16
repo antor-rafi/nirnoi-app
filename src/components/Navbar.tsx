@@ -23,14 +23,12 @@ export default function Navbar({ onProfileClick }: NavbarProps) {
               <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* Modern Connect Link */}
+            {/* Icon-Only Connect Button */}
             <Link
               to="/chat" // Navigate to the chat route
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-lg transition-all"
-              style={{ fontWeight: "bold" }}
+              className="p-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-lg transition-all"
             >
               <MessageSquare className="h-5 w-5" />
-              <span className="text-sm font-medium">Connect</span>
             </Link>
 
             {/* Profile */}
