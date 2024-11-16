@@ -30,8 +30,27 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
           width: "400px",
           boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
           textAlign: "center",
+          position: "relative", // For absolute positioning of the close icon
         }}
       >
+        {/* Cross Icon for Close */}
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            background: "none",
+            border: "none",
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "#4F46E5",
+            cursor: "pointer",
+          }}
+        >
+          ×
+        </button>
+
         <h2 style={{ fontSize: "24px", marginBottom: "20px", color: "#4F46E5" }}>
           Sign In
         </h2>
@@ -113,21 +132,6 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
             {usePhone ? "Sign in with Email instead" : "Sign in with Phone instead"}
           </span>
         </div>
-        <button
-          onClick={onClose}
-          style={{
-            marginTop: "20px",
-            padding: "10px",
-            borderRadius: "5px",
-            background: "#ccc",
-            color: "#333",
-            border: "none",
-            fontSize: "14px",
-            cursor: "pointer",
-          }}
-        >
-          Close
-        </button>
       </div>
     </div>
   );
