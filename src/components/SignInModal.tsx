@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 interface SignInModalProps {
   onClose: () => void;
-  onSignIn: () => void; // Callback to handle sign-in (e.g., redirect to dashboard)
-  onSignUp: () => void; // Callback to handle sign-up (e.g., redirect to sign-up page)
+  onSignIn: () => void;
+  onSignUp: () => void;
 }
 
 const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }) => {
-  const [usePhone, setUsePhone] = useState(false); // State to toggle between Email and Phone options
+  const [usePhone, setUsePhone] = useState(false);
 
   return (
     <div
@@ -32,10 +32,10 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }
           width: "400px",
           boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
           textAlign: "center",
-          position: "relative", // For absolute positioning of the close icon
+          position: "relative",
         }}
       >
-        {/* Cross Icon for Close */}
+        {/* Close Icon */}
         <button
           onClick={onClose}
           style={{
