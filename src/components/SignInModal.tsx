@@ -2,9 +2,11 @@ import React, { useState } from "react";
 
 interface SignInModalProps {
   onClose: () => void;
+  onSignIn: () => void; // Callback to handle sign-in (e.g., redirect to dashboard)
+  onSignUp: () => void; // Callback to handle sign-up (e.g., redirect to sign-up page)
 }
 
-const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
+const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }) => {
   const [usePhone, setUsePhone] = useState(false); // State to toggle between Email and Phone options
 
   return (
@@ -51,10 +53,13 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
           ×
         </button>
 
-        <h2 style={{ fontSize: "24px", marginBottom: "20px", color: "#4F46E5" }}>
-          Sign In
-        </h2>
-        <form>
+        {/* Form */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSignIn(); // Redirect to Dashboard
+          }}
+        >
           <div style={{ marginBottom: "15px", textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>
               {usePhone ? "Phone Number" : "Email"}
@@ -103,14 +108,16 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
               cursor: "pointer",
             }}
           >
-            Sign In
+            Submit
           </button>
         </form>
         <div style={{ marginTop: "15px", fontSize: "14px" }}>
           <span>Don't have an account?</span>{" "}
-          <a
-            href="#"
+          <button
+            onClick={onSignUp}
             style={{
+              background: "none",
+              border: "none",
               color: "#4F46E5",
               textDecoration: "none",
               fontWeight: "bold",
@@ -118,7 +125,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
             }}
           >
             Sign Up
-          </a>
+          </button>
         </div>
         <div style={{ marginTop: "10px", fontSize: "14px", cursor: "pointer" }}>
           <span
