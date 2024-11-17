@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Filter, MapPin } from 'lucide-react';
+import { Search, Filter, MapPin, Loader } from 'lucide-react';
 import axios from 'axios';
 
 // Define the type for university data
@@ -27,10 +27,11 @@ export default function UniversityFinder() {
     fieldOfStudy: '',
   });
 
-  // Define the state for results and loading
+  // Define the state for results, loading, pagination, and error
   const [results, setResults] = useState<University[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
 
   // Backend base URL from environment variables
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://nirnoi-backend.onrender.com';
@@ -41,34 +42,63 @@ export default function UniversityFinder() {
     setError(null);
     try {
       const response = await axios.get<University[]>(`${API_BASE_URL}/api/universities`, {
-        params: filters,
+        params: { ...filters, page },
       });
       setResults(response.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching universities:', error);
-      setError('Failed to fetch universities. Please try again.');
+      if (error.response?.status === 404) {
+        setError('No universities found with the given criteria.');
+      } else {
+        setError('Failed to fetch universities. Please check your connection.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  // Update the filters whenever they change
+  // Update the filters or page whenever they change
   useEffect(() => {
     fetchUniversities();
-  }, [filters]);
+  }, [filters, page]);
 
   // Handle filter changes
   const handleFilterChange = (field: keyof typeof filters, value: string | boolean) => {
+    if (field === 'budget' && isNaN(Number(value))) {
+      alert('Budget must be a number.');
+      return;
+    }
     setFilters({ ...filters, [field]: value });
+    setPage(1); // Reset to the first page when filters change
+  };
+
+  // Save to favorites
+  const saveToFavorites = async (universityId: number) => {
+    try {
+      await axios.post(`${API_BASE_URL}/api/favorites`, { userId: 1, universityId }); // Replace `userId` with dynamic value
+      alert('Added to favorites!');
+    } catch (error) {
+      console.error('Error saving to favorites:', error);
+      alert('Failed to save to favorites.');
+    }
+  };
+
+  // Reset filters
+  const resetFilters = () => {
+    setFilters({ location: '', budget: '', scholarships: false, fieldOfStudy: '' });
+    setPage(1); // Reset to the first page when filters reset
   };
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-900">Recommended Universities</h2>
-        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg">
+        <button
+          onClick={resetFilters}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg"
+        >
           <Filter className="h-4 w-4" />
-          Filters
+          Reset Filters
         </button>
       </div>
 
@@ -86,9 +116,11 @@ export default function UniversityFinder() {
       {/* Results */}
       <div className="space-y-4">
         {loading ? (
-          <div>Loading...</div>
+          <div className="flex justify-center items-center">
+            <Loader className="animate-spin h-6 w-6 text-indigo-600" />
+          </div>
         ) : error ? (
-          <div className="text-red-500">{error}</div>
+          <div className="text-red-500 text-center">{error}</div>
         ) : results.length > 0 ? (
           results.map((uni) => (
             <div
@@ -115,12 +147,38 @@ export default function UniversityFinder() {
                     ></div>
                   </div>
                 </div>
+                <button
+                  onClick={() => saveToFavorites(uni.id)}
+                  className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+                >
+                  Save to Favorites
+                </button>
               </div>
             </div>
           ))
         ) : (
-          <div>No results found</div>
+          <div className="text-center text-gray-500">
+            <p>No results found.</p>
+            <p>Try adjusting the filters or search for something else.</p>
+          </div>
         )}
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-between mt-6">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => setPage((prev) => prev + 1)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

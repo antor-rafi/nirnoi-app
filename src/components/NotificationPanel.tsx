@@ -1,61 +1,48 @@
-import React from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-interface NotificationPanelProps {
-  notifications: { title: string; description: string }[];
-}
+export default function NotificationPanel({ onClose }: { onClose: () => void }) {
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-const NotificationPanel: React.FC<NotificationPanelProps> = ({
-  notifications,
-}) => {
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get('https://nirnoi-backend.onrender.com/api/notifications');
+        setNotifications(response.data);
+      } catch (error) {
+        console.error('Failed to fetch notifications:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "60px",
-        right: "20px",
-        width: "300px",
-        background: "white",
-        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
-        borderRadius: "12px",
-        zIndex: 1000,
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          padding: "15px",
-          backgroundColor: "#4F46E5", // Indigo header
-          color: "white",
-          fontWeight: "bold",
-          fontSize: "16px",
-        }}
-      >
-        Notifications
+    <div className="absolute top-16 right-4 w-80 bg-white border rounded-lg shadow-lg z-50">
+      <div className="p-4 border-b">
+        <h3 className="text-lg font-bold text-gray-900">Notifications</h3>
+        <button className="text-sm text-gray-500 hover:text-gray-800" onClick={onClose}>
+          Close
+        </button>
       </div>
-      <ul style={{ listStyleType: "none", margin: 0, padding: "10px" }}>
-        {notifications.map((notification, index) => (
-          <li
-            key={index}
-            style={{
-              padding: "10px",
-              borderBottom: index < notifications.length - 1 ? "1px solid #E5E7EB" : "none",
-              transition: "background-color 0.3s",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#F3F4F6")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-          >
-            <p style={{ fontWeight: "bold", color: "#111827", margin: "0 0 5px" }}>
-              {notification.title}
-            </p>
-            <p style={{ color: "#6B7280", fontSize: "14px", margin: 0 }}>
-              {notification.description}
-            </p>
-          </li>
-        ))}
-      </ul>
+      {loading ? (
+        <div className="p-4 text-center">Loading...</div>
+      ) : notifications.length > 0 ? (
+        <ul className="divide-y divide-gray-200">
+          {notifications.map((notif: any) => (
+            <li key={notif.id} className="p-4 hover:bg-gray-50">
+              <h4 className="text-sm font-bold">{notif.title}</h4>
+              <p className="text-xs text-gray-500">{notif.message}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="p-4 text-center text-gray-500">No new notifications</div>
+      )}
     </div>
   );
-};
-
-export default NotificationPanel;
+}
