@@ -2,12 +2,28 @@ import React, { useState } from "react";
 
 interface SignInModalProps {
   onClose: () => void;
-  onSignIn: () => void;
+  onSignIn: (credentials: { emailOrPhone: string; password: string }) => void;
   onSignUp: () => void;
 }
 
 const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }) => {
   const [usePhone, setUsePhone] = useState(false);
+  const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!emailOrPhone || !password) {
+      setError("Both fields are required.");
+      return;
+    }
+
+    // Call onSignIn with the captured credentials
+    onSignIn({ emailOrPhone, password });
+    setError(""); // Clear error after successful submission
+  };
 
   return (
     <div
@@ -49,23 +65,21 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }
             color: "#4F46E5",
             cursor: "pointer",
           }}
+          aria-label="Close modal"
         >
           ×
         </button>
 
         {/* Form */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSignIn(); // Redirect to Dashboard
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "15px", textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>
               {usePhone ? "Phone Number" : "Email"}
             </label>
             <input
               type={usePhone ? "tel" : "email"}
+              value={emailOrPhone}
+              onChange={(e) => setEmailOrPhone(e.target.value)}
               placeholder={usePhone ? "Enter your phone number" : "Enter your email"}
               required
               style={{
@@ -83,6 +97,8 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
               style={{
@@ -94,6 +110,12 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }
               }}
             />
           </div>
+
+          {/* Display Error */}
+          {error && (
+            <p style={{ color: "red", marginBottom: "10px", fontSize: "12px" }}>{error}</p>
+          )}
+
           <button
             type="submit"
             style={{
@@ -111,6 +133,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignIn, onSignUp }
             Submit
           </button>
         </form>
+
         <div style={{ marginTop: "15px", fontSize: "14px" }}>
           <span>Don't have an account?</span>{" "}
           <button
