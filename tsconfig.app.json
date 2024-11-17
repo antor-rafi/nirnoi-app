@@ -16,7 +16,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types"], // Ensure type definitions are resolved correctly
+    "baseUrl": ".", // Simplifies imports
+    "paths": {
+      "@/*": ["src/*"] // Adds alias for "src" folder
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/babel_core"]

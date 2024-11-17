@@ -30,17 +30,23 @@ export default function UniversityFinder() {
   // Define the state for results and loading
   const [results, setResults] = useState<University[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Backend base URL from environment variables
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://nirnoi-backend.onrender.com';
 
   // Fetch universities from the backend
   const fetchUniversities = async () => {
     setLoading(true);
+    setError(null);
     try {
-      const response = await axios.get<University[]>('https://nirnoi-backend.onrender.com/api/universities', {
+      const response = await axios.get<University[]>(`${API_BASE_URL}/api/universities`, {
         params: filters,
       });
       setResults(response.data);
     } catch (error) {
       console.error('Error fetching universities:', error);
+      setError('Failed to fetch universities. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -81,6 +87,8 @@ export default function UniversityFinder() {
       <div className="space-y-4">
         {loading ? (
           <div>Loading...</div>
+        ) : error ? (
+          <div className="text-red-500">{error}</div>
         ) : results.length > 0 ? (
           results.map((uni) => (
             <div
