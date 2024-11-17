@@ -166,19 +166,24 @@ export default function UniversityFinder() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between mt-6">
+      <div className="flex justify-center items-center gap-4 mt-6">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+          className={`p-2 rounded-full border ${
+            page === 1 ? 'border-gray-300 text-gray-400 cursor-not-allowed' : 'border-indigo-500 text-indigo-500 hover:bg-indigo-50'
+          }`}
           disabled={page === 1}
+          aria-label="Previous Page"
         >
-          <ChevronLeft className="h-4 w-4" /> Previous
+          <ChevronLeft className="h-5 w-5" />
         </button>
+        <span className="text-sm text-gray-600">Page {page}</span>
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+          className="p-2 rounded-full border border-indigo-500 text-indigo-500 hover:bg-indigo-50"
+          aria-label="Next Page"
         >
-          Next <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-5 w-5" />
         </button>
       </div>
     </div>
