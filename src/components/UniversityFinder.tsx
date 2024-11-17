@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { Search, Filter, MapPin, Loader } from 'lucide-react';
+import { Search, Filter, MapPin, Star, Loader, ChevronLeft, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 
-// Define the type for university data
 type University = {
   id: number;
   name: string;
@@ -15,29 +14,19 @@ type University = {
 };
 
 export default function UniversityFinder() {
-  // Define the filters state
-  const [filters, setFilters] = useState<{
-    location: string;
-    budget: string;
-    scholarships: boolean;
-    fieldOfStudy: string;
-  }>({
+  const [filters, setFilters] = useState({
     location: '',
     budget: '',
     scholarships: false,
     fieldOfStudy: '',
   });
-
-  // Define the state for results, loading, pagination, and error
   const [results, setResults] = useState<University[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
-  // Backend base URL from environment variables
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://nirnoi-backend.onrender.com';
 
-  // Fetch universities from the backend
   const fetchUniversities = async () => {
     setLoading(true);
     setError(null);
@@ -48,35 +37,28 @@ export default function UniversityFinder() {
       setResults(response.data);
     } catch (error: any) {
       console.error('Error fetching universities:', error);
-      if (error.response?.status === 404) {
-        setError('No universities found with the given criteria.');
-      } else {
-        setError('Failed to fetch universities. Please check your connection.');
-      }
+      setError('Failed to fetch universities. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Update the filters or page whenever they change
   useEffect(() => {
     fetchUniversities();
   }, [filters, page]);
 
-  // Handle filter changes
   const handleFilterChange = (field: keyof typeof filters, value: string | boolean) => {
     if (field === 'budget' && isNaN(Number(value))) {
       alert('Budget must be a number.');
       return;
     }
     setFilters({ ...filters, [field]: value });
-    setPage(1); // Reset to the first page when filters change
+    setPage(1);
   };
 
-  // Save to favorites
   const saveToFavorites = async (universityId: number) => {
     try {
-      await axios.post(`${API_BASE_URL}/api/favorites`, { userId: 1, universityId }); // Replace `userId` with dynamic value
+      await axios.post(`${API_BASE_URL}/api/favorites`, { userId: 1, universityId });
       alert('Added to favorites!');
     } catch (error) {
       console.error('Error saving to favorites:', error);
@@ -84,16 +66,15 @@ export default function UniversityFinder() {
     }
   };
 
-  // Reset filters
   const resetFilters = () => {
     setFilters({ location: '', budget: '', scholarships: false, fieldOfStudy: '' });
-    setPage(1); // Reset to the first page when filters reset
+    setPage(1);
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6">
+    <div className="bg-white rounded-xl shadow-md p-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-gray-900">Recommended Universities</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Explore Opportunities</h2>
         <button
           onClick={resetFilters}
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg"
@@ -103,22 +84,44 @@ export default function UniversityFinder() {
         </button>
       </div>
 
-      {/* Search input */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+      {/* Filters */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <input
           type="text"
-          placeholder="Search universities..."
-          className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          placeholder="Location"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
           onChange={(e) => handleFilterChange('location', e.target.value)}
         />
+        <input
+          type="text"
+          placeholder="Budget"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+          onChange={(e) => handleFilterChange('budget', e.target.value)}
+        />
+        <select
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+          onChange={(e) => handleFilterChange('fieldOfStudy', e.target.value)}
+        >
+          <option value="">Field of Study</option>
+          <option value="engineering">Engineering</option>
+          <option value="medicine">Medicine</option>
+          <option value="business">Business</option>
+        </select>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            className="form-checkbox"
+            onChange={(e) => handleFilterChange('scholarships', e.target.checked)}
+          />
+          Scholarships Available
+        </label>
       </div>
 
       {/* Results */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         {loading ? (
           <div className="flex justify-center items-center">
-            <Loader className="animate-spin h-6 w-6 text-indigo-600" />
+            <Loader className="animate-spin h-8 w-8 text-indigo-600" />
           </div>
         ) : error ? (
           <div className="text-red-500 text-center">{error}</div>
@@ -126,42 +129,39 @@ export default function UniversityFinder() {
           results.map((uni) => (
             <div
               key={uni.id}
-              className="flex gap-4 p-4 border border-gray-100 rounded-lg hover:border-indigo-100 cursor-pointer"
+              className="flex gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow"
             >
               <img
                 src={uni.image}
                 alt={uni.name}
-                className="w-24 h-24 object-cover rounded-lg"
+                className="w-20 h-20 object-cover rounded-lg"
               />
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900">{uni.name}</h3>
-                <div className="flex items-center gap-1 mt-1 text-sm text-gray-600">
-                  <MapPin className="h-4 w-4" />
+                <div className="flex items-center text-sm text-gray-600">
+                  <MapPin className="h-4 w-4 mr-1" />
                   {uni.country}
                 </div>
                 <div className="mt-2">
                   <div className="text-sm font-medium text-indigo-600">{uni.match}% match</div>
                   <div className="mt-1 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-indigo-600 rounded-full"
+                      className="h-full bg-indigo-600"
                       style={{ width: `${uni.match}%` }}
                     ></div>
                   </div>
                 </div>
-                <button
-                  onClick={() => saveToFavorites(uni.id)}
-                  className="mt-2 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
-                >
-                  Save to Favorites
-                </button>
               </div>
+              <button
+                onClick={() => saveToFavorites(uni.id)}
+                className="text-yellow-500 hover:text-yellow-600"
+              >
+                <Star className="h-6 w-6" />
+              </button>
             </div>
           ))
         ) : (
-          <div className="text-center text-gray-500">
-            <p>No results found.</p>
-            <p>Try adjusting the filters or search for something else.</p>
-          </div>
+          <div className="text-center text-gray-500">No results found. Try adjusting the filters.</div>
         )}
       </div>
 
@@ -169,16 +169,16 @@ export default function UniversityFinder() {
       <div className="flex justify-between mt-6">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
           disabled={page === 1}
         >
-          Previous
+          <ChevronLeft className="h-4 w-4" /> Previous
         </button>
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
         >
-          Next
+          Next <ChevronRight className="h-4 w-4" />
         </button>
       </div>
     </div>
