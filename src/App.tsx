@@ -1,10 +1,9 @@
-import { useState, Suspense } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SignInModal from './components/SignInModal';
 import NotificationPanel from './components/NotificationPanel';
-import { lazy } from 'react';
 
 // Lazy-loaded components
 const Dashboard = lazy(() => import('./components/Dashboard'));

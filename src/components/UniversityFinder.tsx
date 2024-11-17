@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
 import { Search, Filter, MapPin, Loader } from 'lucide-react';
 import axios from 'axios';
 

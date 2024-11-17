@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from 'react';
 import { Send, Smile } from "lucide-react";
 
 const ChatBox = () => {

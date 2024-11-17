@@ -1,3 +1,4 @@
+import React from 'react';
 import { BookOpen, MessageSquare, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa'; // Import Font Awesome Bell Icon

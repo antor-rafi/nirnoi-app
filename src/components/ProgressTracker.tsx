@@ -1,4 +1,5 @@
 import { CheckCircle2, Circle } from 'lucide-react';
+import React from 'react';
 
 export default function ProgressTracker() {
   const tasks = [
