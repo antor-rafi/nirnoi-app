@@ -7,7 +7,7 @@ const ChatBox = () => {
 
   const handleSend = () => {
     if (input.trim() !== "") {
-      setMessages([...messages, input.trim()]);
+      setMessages((prevMessages) => [...prevMessages, input.trim()]);
       setInput("");
     }
   };
@@ -47,7 +47,7 @@ const ChatBox = () => {
           gap: "10px",
         }}
       >
-        {messages.length === 0 && (
+        {messages.length === 0 ? (
           <p
             style={{
               color: "#6B7280", // Neutral gray
@@ -58,24 +58,25 @@ const ChatBox = () => {
           >
             No messages yet. Start the conversation!
           </p>
+        ) : (
+          messages.map((message, index) => (
+            <div
+              key={index}
+              style={{
+                alignSelf: "flex-end",
+                backgroundColor: "#4F46E5",
+                color: "white",
+                padding: "10px",
+                borderRadius: "15px",
+                maxWidth: "60%",
+                wordWrap: "break-word",
+                fontSize: "14px",
+              }}
+            >
+              {message}
+            </div>
+          ))
         )}
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            style={{
-              alignSelf: "flex-end",
-              backgroundColor: "#4F46E5",
-              color: "white",
-              padding: "10px",
-              borderRadius: "15px",
-              maxWidth: "60%",
-              wordWrap: "break-word",
-              fontSize: "14px",
-            }}
-          >
-            {message}
-          </div>
-        ))}
       </div>
 
       {/* Chat Input Section */}
@@ -114,9 +115,13 @@ const ChatBox = () => {
             borderRadius: "10px",
             cursor: "pointer",
             fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
           }}
         >
           <Send size={16} />
+          Send
         </button>
       </div>
     </div>
