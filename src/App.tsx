@@ -11,7 +11,6 @@ const Dashboard = lazy(() => import('./components/Dashboard'));
 const ChatBox = lazy(() => import('./components/ChatBox'));
 const Resources = lazy(() => import('./components/Resources'));
 const ApplicationTracker = lazy(() => import('./components/ApplicationTracker'));
-const NotFound = lazy(() => import('./components/NotFound'));
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -34,7 +33,6 @@ function App() {
             <Route path="/chat" element={<ChatBox />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/tracker" element={<ApplicationTracker />} />
-            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
 
