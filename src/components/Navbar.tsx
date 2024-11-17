@@ -1,6 +1,5 @@
 import { BookOpen, MessageSquare, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { FaBell } from 'react-icons/fa'; // Import Font Awesome Bell Icon
 
 interface NavbarProps {
@@ -9,7 +8,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onProfileClick, onBellClick }: NavbarProps) {
-  const [notificationCount] = useState(3); // Example notification count
+  const notificationCount = 3; // Example notification count
 
   return (
     <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
@@ -34,8 +33,8 @@ export default function Navbar({ onProfileClick, onBellClick }: NavbarProps) {
                 <span
                   style={{
                     position: 'absolute',
-                    top: '5px',
-                    right: '5px',
+                    top: '-5px',
+                    right: '-5px',
                     background: 'red',
                     color: 'white',
                     borderRadius: '50%',

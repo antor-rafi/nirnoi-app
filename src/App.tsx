@@ -67,36 +67,52 @@ function App() {
               position: 'absolute',
               top: '60px',
               right: '20px',
-              width: '300px',
+              width: '350px',
               background: 'white',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-              borderRadius: '8px',
+              border: '1px solid #E5E7EB', // Frame-like border
+              borderRadius: '12px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+              overflow: 'hidden',
               zIndex: 1000,
+              animation: 'fadeIn 0.3s ease-in-out',
             }}
           >
-            <div style={{ padding: '15px' }}>
-              <h3 style={{ margin: '0 0 10px', fontSize: '18px', borderBottom: '1px solid #ccc' }}>Notifications</h3>
-              <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-                <li style={{ marginBottom: '10px' }}>
-                  <a href="/article-1" style={{ textDecoration: 'none', color: '#4F46E5', fontWeight: 'bold' }}>
-                    New University Program Announced
-                  </a>
-                  <p style={{ margin: '5px 0', fontSize: '12px', color: '#555' }}>Learn about our latest offerings.</p>
-                </li>
-                <li style={{ marginBottom: '10px' }}>
-                  <a href="/article-2" style={{ textDecoration: 'none', color: '#4F46E5', fontWeight: 'bold' }}>
-                    DAAD Scholarships 2024 are Open
-                  </a>
-                  <p style={{ margin: '5px 0', fontSize: '12px', color: '#555' }}>Apply now for financial aid opportunities.</p>
-                </li>
-                <li style={{ marginBottom: '10px' }}>
-                  <a href="/article-3" style={{ textDecoration: 'none', color: '#4F46E5', fontWeight: 'bold' }}>
-                    How to Write a Stellar Application
-                  </a>
-                  <p style={{ margin: '5px 0', fontSize: '12px', color: '#555' }}>Improve your application with our guide.</p>
-                </li>
-              </ul>
+            <div style={{ padding: '15px', borderBottom: '1px solid #eee' }}>
+              <h3 style={{ fontSize: '18px', margin: 0, color: '#333', fontWeight: 'bold' }}>
+                Your Notifications
+              </h3>
             </div>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+              {[
+                { id: 1, title: 'New University Program Announced', desc: 'Learn about our latest offerings.' },
+                { id: 2, title: 'DAAD Scholarships 2024 are Open', desc: 'Apply now for financial aid opportunities.' },
+                { id: 3, title: 'How to Write a Stellar Application', desc: 'Improve your application with our guide.' },
+              ].map((notification) => (
+                <li
+                  key={notification.id}
+                  style={{
+                    padding: '15px 20px',
+                    display: 'flex',
+                    gap: '10px',
+                    alignItems: 'center',
+                    borderBottom: '1px solid #eee',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = '#f9f9f9')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = 'white')}
+                >
+                  <div style={{ background: '#4F46E5', color: 'white', borderRadius: '50%', padding: '8px' }}>
+                    <span style={{ fontWeight: 'bold', fontSize: '14px' }}>🔔</span>
+                  </div>
+                  <div>
+                    <h4 style={{ margin: 0, fontSize: '16px', fontWeight: 'bold', color: '#333' }}>
+                      {notification.title}
+                    </h4>
+                    <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>{notification.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>

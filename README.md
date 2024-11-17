@@ -1,3 +1,3 @@
 # nirnoi-app
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/antor-rafi/nirnoi-app)
+[Fund Your Future Self]
