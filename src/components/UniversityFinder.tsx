@@ -35,7 +35,7 @@ export default function UniversityFinder() {
   const fetchUniversities = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<University[]>('http://localhost:3001/api/universities', {
+      const response = await axios.get<University[]>('https://nirnoi-backend.onrender.com/api/universities', {
         params: filters,
       });
       setResults(response.data);
