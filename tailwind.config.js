@@ -1,44 +1,65 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class', // Enable class-based dark mode
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Include all source files
-    "./index.html",              // Include the HTML entry point
-  ],
-  theme: {
-    extend: {
-      colors: {
-        primary: '#4F46E5', // Indigo
-        backgroundDark: '#1F2937', // Dark background
-        textDark: '#E5E7EB', // Light text for dark mode
-        cardDark: '#374151', // Card background for dark mode
-        success: '#10B981', // Success green
-        warning: '#F59E0B', // Warning yellow
-        danger: '#EF4444', // Error red
-      },
-      boxShadow: {
-        'dark-md': '0 4px 6px -1px rgba(0, 0, 0, 0.8), 0 2px 4px -2px rgba(0, 0, 0, 0.7)', // Shadow for dark mode
-      },
-      typography: (theme) => ({
-        dark: {
-          css: {
-            color: theme('colors.textDark'),
-            a: { color: theme('colors.primary') },
-            h1: { color: theme('colors.textDark') },
-            h2: { color: theme('colors.textDark') },
-            h3: { color: theme('colors.textDark') },
-            blockquote: {
-              color: theme('colors.textDark'),
-              borderLeftColor: theme('colors.primary'),
-            },
-          },
-        },
-      }),
-    },
-  },
-  plugins: [
-    require('@tailwindcss/forms'), // Better form styling
-    require('@tailwindcss/typography'), // Typography plugin for rich text
-    require('@tailwindcss/aspect-ratio'), // Maintain aspect ratios for images/videos
-  ],
-};
+import React from 'react';
+import { BookOpen, MessageSquare, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { FaBell } from 'react-icons/fa';
+
+interface NavbarProps {
+  onProfileClick: () => void;
+  onBellClick: () => void;
+}
+
+export default function Navbar({ onProfileClick, onBellClick }: NavbarProps) {
+  const notificationCount = 3; // Example notification count
+
+  return (
+    <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Nirnoi Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <BookOpen className="h-8 w-8 text-indigo-600" />
+            <span className="ml-2 text-xl font-bold text-gray-900">Nirnoi</span>
+          </Link>
+
+          <div className="flex items-center gap-6">
+            {/* Notifications */}
+            <button
+              className="relative p-2 text-gray-500 hover:text-indigo-600"
+              onClick={onBellClick}
+              aria-label="Notifications"
+            >
+              <FaBell size={24} />
+              {notificationCount > 0 && (
+                <span
+                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-2 py-1"
+                  aria-label={`${notificationCount} notifications`}
+                >
+                  {notificationCount}
+                </span>
+              )}
+            </button>
+
+            {/* Chat */}
+            <Link
+              to="/chat"
+              className="p-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700"
+              aria-label="Chat"
+            >
+              <MessageSquare className="h-5 w-5" />
+            </Link>
+
+            {/* Profile */}
+            <button
+              onClick={onProfileClick}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              aria-label="Profile"
+            >
+              <User className="h-5 w-5 text-gray-600" />
+              <span className="text-sm font-medium text-gray-700">Profile</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
