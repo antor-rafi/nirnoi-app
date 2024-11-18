@@ -1,10 +1,29 @@
-import { StrictMode } from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
-import './index.css';
+import './index.css'; // Import Tailwind CSS
 
-createRoot(document.getElementById('root')!).render(
+// Validate the presence of the root element
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Root element not found. Ensure there is a <div id="root"></div> in index.html.');
+}
+
+// Error Boundary for runtime error handling
+function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      {children}
+    </React.Suspense>
+  );
+}
+
+// Render the application
+createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>
 );
