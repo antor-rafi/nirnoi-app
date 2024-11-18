@@ -8,8 +8,8 @@ export default function Dashboard() {
     { icon: Compass, title: 'Program Finder', desc: 'AI-powered recommendations based on your profile' },
     { icon: GraduationCap, title: 'Scholarship Match', desc: 'Find and track scholarship opportunities tailored to you' },
     { icon: Calculator, title: 'Financial Aid', desc: 'Calculate your eligibility for availing assistance' },
-    { icon: BookOpen, title: 'Exam Prep', desc: 'AI-assisted preparation for IELTS,Goethe-Zertifikat, GRE, and more' },
-    { icon: Users, title: 'Alumni Network', desc: 'Connect with successful NRB studying abroad' },
+    { icon: BookOpen, title: 'Exam Prep', desc: 'AI-assisted prep for IELTS, Goethe-Zertifikat, GRE, and more' },
+    { icon: Users, title: 'Alumni Network', desc: 'Connect with successful NRBs studying abroad' },
     { icon: LineChart, title: 'Visa Tracker', desc: 'Real-time updates on your visa application status' }
   ];
 
@@ -47,15 +47,24 @@ export default function Dashboard() {
             <ul className="mt-4 space-y-3">
               <li className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-white mr-3" />
-                Complete IELTS registration
+                Upload academic documents for evaluation
+                </li>
+              <li className="flex items-center">
+                <div className="h-2 w-2 rounded-full bg-white mr-3" />
+                Book a FREE mentor consultation session 
+              </li>
               </li>
               <li className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-white mr-3" />
-                Submit documents for visa application
+                Complete registration for required language skills
               </li>
               <li className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-white mr-3" />
-                Schedule mentor meeting
+                Track university deadlines and start applications
+              </li>
+              <li className="flex items-center">
+                <div className="h-2 w-2 rounded-full bg-white mr-3" />
+                Arrange financial proof for visa and study funding
               </li>
             </ul>
           </div>
@@ -65,20 +74,40 @@ export default function Dashboard() {
             <div className="mt-4 space-y-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="font-medium text-gray-900">Fall 2024 Applications</p>
-                  <p className="text-sm text-gray-600">University of Toronto</p>
+                  <p className="font-medium text-gray-900">Summer 2025 Application Open</p>
+                  <p className="text-sm text-gray-600">Germany</p>
                 </div>
                 <span className="px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm">
-                  15 days left
+                  45 days left
                 </span>
+                </div>
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-medium text-gray-900">Erasmus Mundus Scholarships</p>
+                  <p className="text-sm text-gray-600">Funding for EU universities</p>
+                </div>
+                <span className="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm">
+                  80 days left
+                </span>
+              </div>
               </div>
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="font-medium text-gray-900">Fulbright Scholarship</p>
-                  <p className="text-sm text-gray-600">Final submission</p>
+                  <p className="font-medium text-gray-900">Ausbildung 2025 Applications</p>
+                  <p className="text-sm text-gray-600">Vocational training in Germany</p>
                 </div>
                 <span className="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm">
-                  30 days left
+                  100 days left
+                </span>
+              </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-medium text-gray-900">MBBS Applications</p>
+                  <p className="text-sm text-gray-600">Top universities in Russia</p>
+                </div>
+                <span className="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm">
+                  120 days left
                 </span>
               </div>
             </div>
