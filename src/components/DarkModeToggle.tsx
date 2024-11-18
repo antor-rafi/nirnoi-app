@@ -20,15 +20,15 @@ export default function DarkModeToggle() {
   return (
     <button
       onClick={() => setIsDarkMode(!isDarkMode)}
-      className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium 
-                 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
+      className="p-2 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 
+                 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+      aria-label="Toggle Dark Mode"
     >
       {isDarkMode ? (
         <Sun className="h-5 w-5 text-yellow-400" />
       ) : (
         <Moon className="h-5 w-5 text-gray-500" />
       )}
-      {isDarkMode ? 'Light Mode' : 'Dark Mode'}
     </button>
   );
 }
