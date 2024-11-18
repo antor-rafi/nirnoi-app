@@ -24,7 +24,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {features.map((feature, index) => (
             <button key={index} className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-              <feature.icon className="h-8 w-8 text-indigo-600 mb-4" />
+              {React.createElement(feature.icon, { className: "h-8 w-8 text-indigo-600 mb-4" })}
               <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>
               <p className="mt-2 text-sm text-gray-600">{feature.desc}</p>
             </button>
@@ -48,11 +48,10 @@ export default function Dashboard() {
               <li className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-white mr-3" />
                 Upload academic documents for evaluation
-                </li>
+              </li>
               <li className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-white mr-3" />
-                Book a FREE mentor consultation session 
-              </li>
+                Book a FREE mentor consultation session
               </li>
               <li className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-white mr-3" />
@@ -80,7 +79,7 @@ export default function Dashboard() {
                 <span className="px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm">
                   45 days left
                 </span>
-                </div>
+              </div>
               <div className="flex justify-between items-center">
                 <div>
                   <p className="font-medium text-gray-900">Erasmus Mundus Scholarships</p>
@@ -90,7 +89,6 @@ export default function Dashboard() {
                   80 days left
                 </span>
               </div>
-              </div>
               <div className="flex justify-between items-center">
                 <div>
                   <p className="font-medium text-gray-900">Ausbildung 2025 Applications</p>
@@ -99,7 +97,6 @@ export default function Dashboard() {
                 <span className="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm">
                   100 days left
                 </span>
-              </div>
               </div>
               <div className="flex justify-between items-center">
                 <div>
