@@ -3,13 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'https://nirnoi-backend.onrender.com',
-        changeOrigin: true,
-      },
-    },
+  css: {
+    postcss: './postcss.config.cjs',
   },
 });

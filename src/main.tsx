@@ -1,4 +1,5 @@
 import React, { StrictMode } from 'react';
+import './index.css'; // Ensure this import exists
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css'; // Import Tailwind CSS
